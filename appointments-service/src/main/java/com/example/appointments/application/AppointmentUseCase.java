@@ -6,6 +6,8 @@ import com.example.appointments.domain.AppointmentRepositoryPort;
 import com.example.appointments.domain.EventPublisherPort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppointmentUseCase {
 
@@ -20,10 +22,14 @@ public class AppointmentUseCase {
     public Appointment createAppointment(Appointment appointment) {
         appointment.setStatus("PENDING");
         Appointment savedAppointment = repositoryPort.save(appointment);
-        
+
         // Send the event to kafka
         eventPublisherPort.publishAppointmentCreated(savedAppointment);
-        
+
         return savedAppointment;
+    }
+
+    public List<Appointment> listAppointments(Long patientId) {
+        return repositoryPort.findByPatientId(patientId);
     }
 }

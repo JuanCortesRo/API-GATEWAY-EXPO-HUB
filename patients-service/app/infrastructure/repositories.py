@@ -8,8 +8,9 @@ class SQLAlchemyPatientRepository(PatientRepository):
     def __init__(self, db: Session):
         self.db = db
 
-    def create(self, patient: Patient) -> Patient:
+    def create(self, patient: Patient, patient_id: int) -> Patient:
         db_patient = PatientEntity(
+            id=patient_id,
             name=patient.name,
             document_id=patient.document_id,
             email=patient.email
@@ -17,7 +18,7 @@ class SQLAlchemyPatientRepository(PatientRepository):
         self.db.add(db_patient)
         self.db.commit()
         self.db.refresh(db_patient)
-        
+
         return Patient(
             id=db_patient.id,
             name=db_patient.name,

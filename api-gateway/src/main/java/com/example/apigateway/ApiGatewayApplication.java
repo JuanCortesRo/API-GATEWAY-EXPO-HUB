@@ -16,35 +16,37 @@ public class ApiGatewayApplication {
         SpringApplication.run(ApiGatewayApplication.class, args);
     }
 
-    // Programmatic routing has been moved to YAML.
-    // Only the global security filter remains here:
+    // El enrutamiento programático desaparece de aquí y se pasa a YAML.
+    // Solo conservamos el filtro global de seguridad:
     @Bean
-    public GlobalFilter customGlobalFilter() {
+    public GlobalFilter authGlobalFilter() {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-            
-            System.out.println(">>> Request intercepted by the Gateway at: " + request.getURI().getPath());
 
-            if (request.getURI().getPath().startsWith("/appointments") && request.getMethod().name().equals("POST")) {
-                String authHeader = request.getHeaders().getFirst("Authorization");
+            System.out.println(">>> Petición interceptada por el Gateway en: " + request.getURI().getPath());
 
-                if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                    System.out.println(">>> Blocked: Authorization token is missing.");
-                    exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-                    return exchange.getResponse().setComplete();
-                }
+            String authHeader = request.getHeaders().getFirst("Authorization");
 
-                String patientId = authHeader.substring(7);
-                
-                ServerHttpRequest mutatedRequest = request.mutate()
-                        .header("X-Patient-Id", patientId)
-                        .build();
-
-                System.out.println(">>> Valid token. Injecting secure X-Patient-Id header: " + patientId);
-                return chain.filter(exchange.mutate().request(mutatedRequest).build());
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                System.out.println(">>> Bloqueado: No hay token de autorización.");
+                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                return exchange.getResponse().setComplete();
             }
 
-            return chain.filter(exchange);
+            String patientId = authHeader.substring(7);
+
+            if (patientId.isBlank()) {
+                System.out.println(">>> Bloqueado: token de autorización vacío.");
+                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                return exchange.getResponse().setComplete();
+            }
+
+            ServerHttpRequest mutatedRequest = request.mutate()
+                    .header("X-Patient-Id", patientId)
+                    .build();
+
+            System.out.println(">>> Token válido. Inyectando cabecera segura X-Patient-Id: " + patientId);
+            return chain.filter(exchange.mutate().request(mutatedRequest).build());
         };
     }
 }

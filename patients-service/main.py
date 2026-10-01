@@ -1,5 +1,5 @@
 # main.py
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, Header, HTTPException
 from sqlalchemy.orm import Session
 
 from app.domain.models import Patient
@@ -20,15 +20,22 @@ def get_patient_service(db: Session = Depends(get_db)) -> PatientService:
 # --- Controllers (Endpoints HTTP) ---
 
 @app.post("/patients/", response_model=Patient, status_code=201)
-def create_patient(patient: Patient, service: PatientService = Depends(get_patient_service)):
+def create_patient(
+    patient: Patient,
+    x_patient_id: int = Header(..., alias="X-Patient-Id"),
+    service: PatientService = Depends(get_patient_service)
+):
     try:
-        return service.create_patient(patient)
+        return service.create_patient(patient, x_patient_id)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.get("/patients/{patient_id}", response_model=Patient)
-def get_patient(patient_id: int, service: PatientService = Depends(get_patient_service)):
-    patient = service.get_patient(patient_id)
+@app.get("/patients/me", response_model=Patient)
+def get_me(
+    x_patient_id: int = Header(..., alias="X-Patient-Id"),
+    service: PatientService = Depends(get_patient_service)
+):
+    patient = service.get_patient(x_patient_id)
     if not patient:
         raise HTTPException(status_code=404, detail="Paciente no encontrado")
     return patient

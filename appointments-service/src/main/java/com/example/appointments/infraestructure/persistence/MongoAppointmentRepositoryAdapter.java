@@ -5,6 +5,8 @@ import com.example.appointments.domain.Appointment;
 import com.example.appointments.domain.AppointmentRepositoryPort;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class MongoAppointmentRepositoryAdapter implements AppointmentRepositoryPort {
 
@@ -23,11 +25,23 @@ public class MongoAppointmentRepositoryAdapter implements AppointmentRepositoryP
 
         AppointmentDocument savedDoc = mongoRepository.save(doc);
 
+        return toDomain(savedDoc);
+    }
+
+    @Override
+    public List<Appointment> findByPatientId(Long patientId) {
+        return mongoRepository.findByPatientId(patientId)
+                .stream()
+                .map(this::toDomain)
+                .toList();
+    }
+
+    private Appointment toDomain(AppointmentDocument doc) {
         return new Appointment(
-            savedDoc.getId(),
-            savedDoc.getPatientId(),
-            savedDoc.getAppointmentDate(),
-            savedDoc.getStatus()
+                doc.getId(),
+                doc.getPatientId(),
+                doc.getAppointmentDate(),
+                doc.getStatus()
         );
     }
 }

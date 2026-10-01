@@ -5,7 +5,7 @@ from .models import Patient
 
 class PatientRepository(ABC):
     @abstractmethod
-    def create(self, patient: Patient) -> Patient:
+    def create(self, patient: Patient, patient_id: int) -> Patient:
         pass
 
     @abstractmethod
