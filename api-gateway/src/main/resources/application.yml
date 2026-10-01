@@ -19,6 +19,12 @@ spring:
               predicates:
                 - Path=/patients,/patients/**
 
+app:
+  cognito:
+    issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_WyUxPZ3hF
+    jwk-set-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_WyUxPZ3hF/.well-known/jwks.json
+    client-id: 5mn8kpjmjahao9ru6b6ms99s9i
+
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
