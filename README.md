@@ -18,8 +18,6 @@ directamente con los microservicios.
 8. [API expuesta](#8-api-expuesta)
 9. [Tests y verificación](#9-tests-y-verificación)
 10. [Decisiones de diseño](#10-decisiones-de-diseño)
-11. [Trampas conocidas](#11-trampas-conocidas)
-12. [Documentación relacionada](#12-documentación-relacionada)
 
 ---
 
@@ -517,67 +515,5 @@ uno y los eventos desaparecen sin error.
 
 ---
 
-## 11. Trampas conocidas
 
-### Spring Boot 4 / SCG 5 renombraron propiedades (la principal)
 
-Spring Boot **ignora silenciosamente** las propiedades que no reconoce: la app
-arranca limpiás y el problema se nota después. Dos casos que mordieron acá:
-
-- **Rutas del gateway** → `spring.cloud.gateway.server.webflux.routes`. La clave
-  vieja `spring.cloud.gateway.routes` **ya no existe**: el síntoma es **404 en
-  todas las rutas** (cero rutas cargadas). Una ruta programática lo disfraza,
-  porque evita el *property binding*.
-- **Mongo** → `spring.mongodb.uri`. La clave `spring.data.mongodb.uri` está
-  **eliminada**; con la vieja, Mongo cae al default `mongodb://localhost/test`
-  y **escribe silenciosamente en la base `test`** (pasó: hay citas varadas en
-  `test.appointments`).
-
-Verificá cualquier propiedad así:
-
-```bash
-unzip -p ~/.m2/repository/org/springframework/cloud/spring-cloud-gateway-server-webflux/5.0.3/spring-cloud-gateway-server-webflux-5.0.3.jar \
-  META-INF/spring-configuration-metadata.json
-```
-
-### Otras
-
-| Trampa | Detalle |
-| --- | --- |
-| `.properties` gana a `.yml` | `appointments-service` y `notifications-service` tienen **ambos** en `src/main/resources`. En `.properties` solo está `spring.application.name`; poné config nueva en `.yml` y nunca la misma clave en los dos |
-| El gateway **no hace hot-reload** | Reiniciá después de tocar `application.yml`. Fijate procesos viejos: `ss -ltnp \| grep :8080` o el nuevo muere con `Port 8080 was already in use` |
-| `infraestructure` (typo) | El **directorio** se escribe `infraestructure` pero el **paquete** Java es `...infrastructure`. Un refactor "arreglando" el nombre rompe el build |
-| `create_all` a import time | `main.py:11` crea tablas al importar. **No altera tablas existentes**: cualquier cambio de columna necesita migración manual, reiniciar no basta |
-| Topic en dos lugares | Ver sección 10 |
-| Acceso directo = sin gateway | `curl localhost:8081` o `:8000` **se saltea el filtro**, así que `X-Patient-Id` queda bajo control del llamador. En AWS eso lo resuelven security groups y subredes privadas |
-| Sin CORS | El navegador solo puede llamar al gateway **vía el proxy de Vite** |
-| Sin lint/formatter | La verificación es compile + test |
-| `patients-service/.gitignore` está **vacío** | `venv/` y `.env` no están ignorados ahí (el `.gitignore` raíz sí los cubre) |
-
----
-
-## 12. Documentación relacionada
-
-| Archivo | Qué contiene |
-| --- | --- |
-| `docs/Notas.md` | **Guion de exposición de 4 minutos** — tiempos por sección, comandos de la demo y apéndices (patrones de clase, líneas de código) |
-| `docs/AGENTS.md` | Notas operativas para agentes. ⚠️ **Está desactualizado en varios puntos** — ver abajo |
-| `guion-api-gateway.md` | El guion vive ahora en `docs/Notas.md` |
-
-### ⚠️ Correcciones a `docs/AGENTS.md`
-
-`docs/AGENTS.md` describe el estado **anterior** del proyecto. Ya no es exacto en:
-
-1. **El roadmap de Cognito está implementado.** Ya no hay
-   `Authorization: Bearer <patientId>` simulado: hay Resource Server real.
-   `Patient.id` es `str`, `patientId` es `String`, y el filtro lee
-   `getSubject()` desde `ReactiveSecurityContextHolder`.
-2. **`PatientIdHeaderFilter.getOrder()` es `0`**, no `-100` (ese `-100` es el
-   orden de Spring Security).
-3. **`PatientIdHeaderFilterTests` ya no existe.** Solo quedan 3 tests
-   `contextLoads()`.
-4. **`ApiGatewayApplicationTests` está en `src/test/java/com/example/apigateway`**
-   (no en un directorio `api_gateway` con guion bajo).
-5. **El repo sí es un repo git** (`git rev-parse` devuelve `true`).
-
-El resto (traps de propiedades, infra Docker, orden de comandos) sigue vigente.
