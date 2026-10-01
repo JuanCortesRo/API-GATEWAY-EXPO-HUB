@@ -1,0 +1,30 @@
+### Documentation excluded from this repository ###
+*.md
+
+### Build and dependency artifacts ###
+target/
+build/
+dist/
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+### Environment and local configuration ###
+.env
+.env.*
+!.env.example
+
+### Logs and coverage ###
+*.log
+.coverage
+.coverage.*
+htmlcov/
+
+### IDE and operating system files ###
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
