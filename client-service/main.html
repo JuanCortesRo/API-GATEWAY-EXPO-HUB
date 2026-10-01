@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Inicio | CitAPIs</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="index-page">
+  <header data-site-header data-authenticated="true"></header>
+
+  <main class="main">
+    <section id="hero" class="hero section light-background">
+      <div class="container position-relative">
+        <div class="welcome position-relative" data-aos="fade-down" data-aos-delay="100">
+          <h2>Bienvenido, {usuario}</h2>
+        </div>
+        <div class="appointments-widget" data-appointments-widget data-aos="fade-down" data-aos-delay="200" hidden></div>
+      </div>
+    </section>
+
+    <section id="services" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Servicios</h2>
+        <p>Conoce los servicios disponibles en Medilab.</p>
+      </div>
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <div class="icon"><i class="fas fa-heartbeat"></i></div>
+              <a href="#appointment" class="stretched-link"><h3>Consulta general</h3></a>
+              <p>Atención médica para valorar tu estado de salud y orientarte.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <div class="icon"><i class="fas fa-pills"></i></div>
+              <a href="#appointment" class="stretched-link"><h3>Seguimiento médico</h3></a>
+              <p>Da continuidad a tu tratamiento con nuestro equipo médico.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <div class="icon"><i class="fas fa-hospital-user"></i></div>
+              <a href="#appointment" class="stretched-link"><h3>Atención especializada</h3></a>
+              <p>Solicita una cita para recibir atención según tus necesidades.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="appointment" class="appointment section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Agendar una cita</h2>
+        <p>Selecciona una fecha para tu cita.</p>
+      </div>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <form id="appointment-form">
+          <div class="form-group">
+            <input type="datetime-local" name="date" class="form-control datepicker" id="date" step="1" required>
+          </div>
+          <div class="mt-3">
+            <div class="text-center"><button type="submit">Solicitar cita</button></div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <div class="logo d-flex align-items-center">
+            <span class="sitename">CitAPIs</span>
+          </div>
+          <div class="footer-contact pt-3">
+            <p>Zona B - Edificio B13</p>
+            <p>Cali, Valle del Cauca</p>
+            <p class="mt-3"><strong>Teléfono:</strong> <span>+67 000 0000 0000</span></p>
+            <p><strong>Email:</strong> <span>grupo09estuvoaqui@example.com</span></p>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Enlaces Útiles</h4>
+          <ul>
+            <li>Cancelar la materia</li>
+            <li>Soy Sans, ee ee ee e</li>
+            <li>Goat el que lo lea</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Nuestros Servicios</h4>
+          <ul>
+            <li>Consulta general</li>
+            <li>Seguimiento médico</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>CitAPIs</h4>
+          <ul>
+            <li>Sobre nosotros</li>
+            <li>Preguntas frecuentes</li>
+            <li>Ayuda</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Cuenta</h4>
+          <ul>
+            <li>Perfil</li>
+            <li>Salir</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Medilab</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        Designed by BootstrapMade Distributed by ThemeWagon
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/header.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script type="module" src="/src/home.js"></script>
+</body>
+
+</html>

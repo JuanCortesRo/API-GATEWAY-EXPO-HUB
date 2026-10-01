@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Acceso | CitAPIs</title>
+  <meta name="description" content="Accede o crea tu cuenta en CitAPIs">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="auth-page">
+  <header data-site-header data-authenticated="false"></header>
+
+  <main class="auth-shell">
+    <section class="auth-card" aria-labelledby="auth-title">
+      <div class="auth-heading">
+        <h1 id="auth-title">Tu cuenta</h1>
+        <p>Pide tus citas de forma sencilla.</p>
+      </div>
+
+      <div class="auth-tabs" role="tablist" aria-label="Acceso a la cuenta">
+        <button class="auth-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="login-panel" data-auth-tab="login-panel">
+          Iniciar sesión
+        </button>
+        <button class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="register-panel" data-auth-tab="register-panel">
+          Crear cuenta
+        </button>
+      </div>
+
+      <div id="login-panel" class="auth-panel" data-auth-panel="login-panel" role="tabpanel">
+        <form class="auth-form" data-auth-form>
+          <div class="form-group">
+            <label for="login-email">Correo electrónico</label>
+            <input type="email" class="form-control" id="login-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Contraseña</label>
+            <input type="password" class="form-control" id="login-password" name="password" autocomplete="current-password" required>
+          </div>
+          <button class="auth-submit" type="submit">Iniciar sesión</button>
+        </form>
+      </div>
+
+      <div id="register-panel" class="auth-panel is-hidden" data-auth-panel="register-panel" role="tabpanel">
+        <form class="auth-form" data-auth-form>
+          <div class="form-group">
+            <label for="register-name">Nombre completo</label>
+            <input type="text" class="form-control" id="register-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="register-cedula">Cédula</label>
+            <input type="text" class="form-control" id="register-cedula" name="cedula" inputmode="numeric" autocomplete="off" required>
+          </div>
+          <div class="form-group">
+            <label for="register-email">Correo electrónico</label>
+            <input type="email" class="form-control" id="register-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password">Contraseña</label>
+            <input type="password" class="form-control" id="register-password" name="password" autocomplete="new-password" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password-confirmation">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="register-password-confirmation" name="password_confirmation" autocomplete="new-password" required>
+          </div>
+          <button class="auth-submit" type="submit">Crear cuenta</button>
+        </form>
+      </div>
+
+      <div id="confirm-panel" class="auth-panel is-hidden" data-auth-panel="confirm-panel" role="tabpanel">
+        <p class="auth-panel-note" data-confirm-note></p>
+        <form class="auth-form">
+          <div class="form-group">
+            <label for="confirm-code">Código de verificación</label>
+            <input type="text" class="form-control" id="confirm-code" name="code" inputmode="numeric" autocomplete="one-time-code" required>
+          </div>
+          <button class="auth-submit" type="submit">Confirmar cuenta</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/header.js"></script>
+  <script type="module" src="/src/login.js"></script>
+</body>
+
+</html>
