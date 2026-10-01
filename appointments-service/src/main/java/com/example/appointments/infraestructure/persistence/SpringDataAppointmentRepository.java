@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SpringDataAppointmentRepository extends MongoRepository<AppointmentDocument, String> {
 
-    List<AppointmentDocument> findByPatientId(Long patientId);
+    List<AppointmentDocument> findByPatientId(String patientId);
 }

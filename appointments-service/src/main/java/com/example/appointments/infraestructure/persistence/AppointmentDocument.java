@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class AppointmentDocument {
     @Id
     private String id;
-    private Long patientId;
+    private String patientId;
     private LocalDateTime appointmentDate;
     private String status;
 }

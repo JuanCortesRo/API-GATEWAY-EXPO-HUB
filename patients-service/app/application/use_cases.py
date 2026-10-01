@@ -10,5 +10,5 @@ class PatientService:
         # rest of the bussiness logic (ex. verify if the patient alr exist)
         return self.repository.create(patient, patient_id)
 
-    def get_patient(self, patient_id: int) -> Patient:
+    def get_patient(self, patient_id: str) -> Patient:
         return self.repository.get_by_id(patient_id)

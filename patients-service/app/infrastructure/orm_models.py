@@ -5,7 +5,7 @@ from .database import Base
 class PatientEntity(Base):
     __tablename__ = "patients"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String(36), primary_key=True, index=True)
     name = Column(String, index=True)
     document_id = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)

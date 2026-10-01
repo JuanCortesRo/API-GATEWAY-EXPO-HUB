@@ -21,7 +21,7 @@ public class AppointmentController {
 
     @PostMapping
     public ResponseEntity<Appointment> createAppointment(
-            @RequestHeader("X-Patient-Id") Long patientId, // header inyected
+            @RequestHeader("X-Patient-Id") String patientId, // header inyected
             @RequestBody Appointment appointment) {
 
         appointment.setPatientId(patientId);
@@ -32,7 +32,7 @@ public class AppointmentController {
 
     @GetMapping
     public ResponseEntity<List<Appointment>> listAppointments(
-            @RequestHeader("X-Patient-Id") Long patientId) {
+            @RequestHeader("X-Patient-Id") String patientId) {
         return ResponseEntity.ok(appointmentUseCase.listAppointments(patientId));
     }
 }

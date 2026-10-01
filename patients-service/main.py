@@ -22,7 +22,7 @@ def get_patient_service(db: Session = Depends(get_db)) -> PatientService:
 @app.post("/patients/", response_model=Patient, status_code=201)
 def create_patient(
     patient: Patient,
-    x_patient_id: int = Header(..., alias="X-Patient-Id"),
+    x_patient_id: str = Header(..., alias="X-Patient-Id"),
     service: PatientService = Depends(get_patient_service)
 ):
     try:
@@ -32,7 +32,7 @@ def create_patient(
 
 @app.get("/patients/me", response_model=Patient)
 def get_me(
-    x_patient_id: int = Header(..., alias="X-Patient-Id"),
+    x_patient_id: str = Header(..., alias="X-Patient-Id"),
     service: PatientService = Depends(get_patient_service)
 ):
     patient = service.get_patient(x_patient_id)

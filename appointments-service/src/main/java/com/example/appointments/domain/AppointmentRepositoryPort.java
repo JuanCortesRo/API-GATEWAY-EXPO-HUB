@@ -6,5 +6,5 @@ import java.util.List;
 public interface AppointmentRepositoryPort {
     Appointment save(Appointment appointment);
 
-    List<Appointment> findByPatientId(Long patientId);
+    List<Appointment> findByPatientId(String patientId);
 }

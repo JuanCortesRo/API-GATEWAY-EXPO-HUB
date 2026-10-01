@@ -29,7 +29,7 @@ public class MongoAppointmentRepositoryAdapter implements AppointmentRepositoryP
     }
 
     @Override
-    public List<Appointment> findByPatientId(Long patientId) {
+    public List<Appointment> findByPatientId(String patientId) {
         return mongoRepository.findByPatientId(patientId)
                 .stream()
                 .map(this::toDomain)

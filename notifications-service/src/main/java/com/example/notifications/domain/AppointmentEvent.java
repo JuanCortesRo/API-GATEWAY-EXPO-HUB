@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AppointmentEvent {
     private String id;
-    private Long patientId;
+    private String patientId;
     private String appointmentDate;
     private String status;
 }

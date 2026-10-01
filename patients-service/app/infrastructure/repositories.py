@@ -26,7 +26,7 @@ class SQLAlchemyPatientRepository(PatientRepository):
             email=db_patient.email
         )
 
-    def get_by_id(self, patient_id: int) -> Patient | None:
+    def get_by_id(self, patient_id: str) -> Patient | None:
         db_patient = self.db.query(PatientEntity).filter(PatientEntity.id == patient_id).first()
         if db_patient:
             return Patient(

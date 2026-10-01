@@ -29,7 +29,7 @@ public class AppointmentUseCase {
         return savedAppointment;
     }
 
-    public List<Appointment> listAppointments(Long patientId) {
+    public List<Appointment> listAppointments(String patientId) {
         return repositoryPort.findByPatientId(patientId);
     }
 }

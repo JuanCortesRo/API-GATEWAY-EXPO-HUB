@@ -9,5 +9,5 @@ class PatientRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_id(self, patient_id: int) -> Optional[Patient]:
+    def get_by_id(self, patient_id: str) -> Optional[Patient]:
         pass
