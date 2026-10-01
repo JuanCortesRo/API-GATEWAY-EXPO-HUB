@@ -1,7 +1,8 @@
 ### Documentation excluded from this repository ###
-*.md
+
 
 ### Build and dependency artifacts ###
+docs/
 target/
 build/
 dist/
